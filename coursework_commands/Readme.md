@@ -15,6 +15,7 @@ Author.objects.create(user=User.objects.get(pk=3))
 
 
 **3. Добавить 4 категории в модель Category**
+
 4 times the command below with categories allowed from the choices-list
 ```
 Category.objects.create(name=<category>)
@@ -22,6 +23,7 @@ Category.objects.create(name=<category>)
 
 
 **4. Добавить 2 статьи и 1 новость.**
+
 3 times something similar to below:
 
 ```
@@ -40,6 +42,7 @@ post1.category.add(Category.objects.get(pk=1))
 
 
 **6. Создать как минимум 4 комментария к разным объектам модели Post (в каждом объекте должен быть как минимум один комментарий)**
+
 4 times something like this:
 ```
 Comment.objects.create(post=post1,user=User.objects.get(pk=1), text="Khodorkovsky is right as usual")
@@ -47,6 +50,7 @@ Comment.objects.create(post=post1,user=User.objects.get(pk=1), text="Khodorkovsk
 
 
 **7. Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов**
+
 like or dislike the posts/comments
 ```
 post1.like()
