@@ -39,6 +39,11 @@ can do that several times for the same post (this way a post can have more than 
 ```
 post1.category.add(Category.objects.get(pk=1))
 ```
+or
+```
+pol = Category.objects.get(pk=1)
+pol.name.set(post1)
+```
 
 
 **6. Создать как минимум 4 комментария к разным объектам модели Post (в каждом объекте должен быть как минимум один комментарий)**
