@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+  <h1 class="fw-bolder">Welcome! </h1>
+    <p class="lead"> The current user rating of this article is: {{post.rating}}</p>
+{% endblock %}
+
+
+{% block content %}
+
+<h4> {{ post.title|censor }} </h4>
+<br>
+{{ post.time_post|date:'d M Y H:i' }}
+<br>
+{{ post.text|censor }}
+{% endblock %}

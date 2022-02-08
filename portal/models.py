@@ -50,6 +50,8 @@ class Author(models.Model):
 
 
 
+
+
 class Category(models.Model):
     POLITICS = "POL"
     SPORTS = "SPR"

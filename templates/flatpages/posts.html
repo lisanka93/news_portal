@@ -1,0 +1,26 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+
+{% block title %}
+  <h1 class="fw-bolder">Welcome! </h1>
+    <p class="lead">All the latest news (the total number of news is {{posts|length}})</p>
+{% endblock %}
+
+{% block content %}
+<h2>Latest News</h2>
+<p class="lead">here you can see all the latest news</p>
+
+<br>
+{%for p in posts %}
+<h4> {{p.title|censor}} </h4>
+
+{{p.time_post|date:'d-M-Y'}}
+<br>
+{{p.text|truncatechars:100|censor}}
+<hr>
+<br>
+
+{% endfor %}
+
+{% endblock content %}
