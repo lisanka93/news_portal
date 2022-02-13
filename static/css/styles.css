@@ -634,8 +634,8 @@ progress {
 .container-md,
 .container-sm {
   width: 100%;
-  padding-right: var(--bs-gutter-x, 0.75rem);
-  padding-left: var(--bs-gutter-x, 0.75rem);
+  padding-right: var(--bs-gutter-x, 0rem);
+  padding-left: var(--bs-gutter-x, 0rem);
   margin-right: auto;
   margin-left: auto;
 }
@@ -873,7 +873,7 @@ progress {
 
 .g-4,
 .gx-4 {
-  --bs-gutter-x: 1.5rem;
+  --bs-gutter-x: 3.5rem;
 }
 
 .g-4,
@@ -1399,7 +1399,7 @@ progress {
 
   .col-lg-8 {
     flex: 0 0 auto;
-    width: 66.66666667%;
+
   }
 
   .col-lg-9 {
@@ -7456,8 +7456,8 @@ textarea.form-control-lg {
 }
 
 .px-4 {
-  padding-right: 1.5rem !important;
-  padding-left: 1.5rem !important;
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
 }
 
 .px-5 {

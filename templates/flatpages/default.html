@@ -20,6 +20,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#write">Write your own</a></li>
 
                     </ul>
                 </div>
@@ -32,27 +33,27 @@
 
           {% endblock %}
 
-                {% block date %}
-
-                {% endblock %}
-
 
                 <a class="btn btn-lg btn-light" href="#news">Start reading!</a>
             </div>
         </header>
         <!-- News section-->
         <section id="news">
-            <div class="container px-4">
-                <div class="row gx-4 justify-content-center">
+            <div class="justify-content-center">
+                <div class="row gx-0 justify-content-center">
                     <div class="col-lg-8">
+                      {% block date %}
+
+                      {% endblock %}
+
                       {% block content %}
-                        
+
                         {% endblock content %}
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Services section-->
+
 
         <!-- Footer-->
         <footer class="py-5 bg-dark">

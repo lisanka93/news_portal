@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'portal',
     'django.contrib.sites',   #not default included
     'django.contrib.flatpages',   #not default included
+    'django_filters',
     #'fpages'
 ]
 
@@ -117,7 +118,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

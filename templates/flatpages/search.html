@@ -13,20 +13,20 @@
 
 {% block content %}
 <h2>Latest News</h2>
-<p class="lead">here you can see all the latest news</p>
+<p class="lead">here you can see all the latest news and filter them</p>
 
 
 
+<form method="GET">
+    {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
+    <input type="submit" value="Search">
+</form>
+<hr>
 <br>
-{%for p in filter.qs %}
+{%for p in posts %}
 <h4> {{p.title|censor}} </h4>
-<td>
-<a href="{% url 'post' p.id %}">{{ p.title|title|censor}}</a> <!-- При нажатии на имя товара в таблице нас теперь будет перекидывать на страницу с информацией о товаре -->
 
-    <a href="{% url 'update' p.id %}"><u>Редактировать</u></a> <!-- добавим ссылку на редактирование товара-->
-
-    <a href="{% url 'delete' p.id %}"><u> Удалить </u></a> <!-- добавим ссылку на удаление товара-->
-</td>
+<a href="{% url 'post' p.id %}">{{ p.title|title|censor}}</a>
 <br>
 {{p.time_post|date:'d-M-Y'}}
 <br>

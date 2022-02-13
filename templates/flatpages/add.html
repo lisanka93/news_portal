@@ -1,0 +1,36 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+  <h1 class="fw-bolder">Welcome! </h1>
+    <p class="lead">Here you can add your own post</p> <!--only paginator works too -->
+{% endblock %}
+
+{% block date %}
+{{ time_now|date:'M d Y' }}
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+<form method="POST">
+    {% csrf_token %}
+
+    {% for field in form %}
+    <div class="row">
+       <div class="col-md-2">
+        {{ field.label_tag }}
+         {{ field }}
+       </div>
+    </div>
+ {% endfor %}
+<br>
+    <input type="submit" value="post">
+</form>
+
+
+
+
+{% endblock content %}

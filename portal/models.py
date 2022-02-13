@@ -48,6 +48,10 @@ class Author(models.Model):
         self.rating = p_rating * 3 + c_rating + p_c_rating
         self.save()
 
+    def __str__(self):
+        return f'{self.user.username}'
+        #return f'{self}'
+
 
 
 
@@ -73,6 +77,11 @@ class Category(models.Model):
 
     name = models.CharField(max_length=3, choices = GENRES, unique=True)
 
+    def __str__(self):
+        return f'{self.get_name_display()}'  #important - use this to show actual name and abbriviation
+
+
+
 
 
 class Post(models.Model):
@@ -88,6 +97,7 @@ class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE) #try: related_name="post"
     type = models.CharField(max_length=4, choices=TYPES)
     time_post = models.DateTimeField(auto_now_add=True)
+    date_post = models.DateField(auto_now_add=True) #YYYY-MM-DD
     category = models.ManyToManyField(Category, through='PostCategory')  #assuming a post can have more than one category
     title = models.CharField(max_length=255)
     text = models.TextField(validators=[validate_min_length])
@@ -103,6 +113,12 @@ class Post(models.Model):
 
     def preview(self):
         return self.text[:124] + " ..."
+
+    #class Meta:
+        #db_table ="portal_post"
+
+    def get_absolute_url(self):  # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с товаром
+        return f'/templates/posts/{self.id}'
 
 
 
