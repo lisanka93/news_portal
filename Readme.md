@@ -6,4 +6,4 @@ For coursework D4 - should all work as specified in brief. date format is: the a
 
 For coursework D5 - issue from D4 fixed (thanks Tima!), should all work as specified in brief (couldnt be bothered to create new groups - basic is common, and premium is author)
 
-TODO: try to make it so that users can only edit and delete their own posts and not from other users
+TODO: when user becomes author, new author objet gets creatd. then, try to make it so that users can only edit and delete their own posts and not from other users
