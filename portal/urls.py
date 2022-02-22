@@ -3,8 +3,8 @@ from .views import Posts, PostDetail, PostSearch, PostAdd, PostDelete, PostUpdat
 
 
 urlpatterns= [
-    path("", Posts.as_view()),
-    path("search", PostSearch.as_view()),
+    path("", Posts.as_view(), name="home"),
+    path("search/", PostSearch.as_view(), name="search"),
     path("add/", PostAdd.as_view(), name="add"),
     #path('add/<int:pk>', PostAdd.as_view(), name='update'),
     path('<int:pk>/edit', PostUpdate.as_view(), name='update'),

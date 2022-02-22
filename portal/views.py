@@ -1,4 +1,7 @@
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from .models import Post, Author, User
 from datetime import datetime
 from django.shortcuts import render
@@ -18,8 +21,8 @@ def showresults(request):
         return render(request, 'flatpages/posts.html', {"data": displaydata})
 
 """
-
-class PostAdd(CreateView):
+@method_decorator(login_required, name='dispatch')
+class PostAdd(PermissionRequiredMixin, CreateView):
     """
     createviews save automatically and do not require saving like if it was listfew with post function
     """
@@ -29,6 +32,8 @@ class PostAdd(CreateView):
 
     form_class = PostForm
     success_url = '/news/'
+
+    permission_required = ('portal.add_post',)
 
     """
     def post(self, request, *args, **kwargs):
@@ -40,20 +45,20 @@ class PostAdd(CreateView):
         return super().get(request, *args, **kwargs)
     """
 
-
+@method_decorator(login_required, name='dispatch')
 class Posts(ListView):
     model = Post
     template_name = 'flatpages/posts.html'
     context_object_name = 'posts'
     ordering = ['-time_post'] #TODO; do it by date
-    paginate_by = 3 # поставим постраничный вывод в один элемент
+    paginate_by = 3# поставим постраничный вывод в один элемент
 
     def get_context_data(self, **kwargs):  # забираем отфильтрованные объекты переопределяя метод get_context_data у наследуемого класса (привет, полиморфизм, мы скучали!!!)
         context = super().get_context_data(**kwargs)
         context['time_now'] = datetime.utcnow()
         context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())  # вписываем наш фильтр в контекст
         context['authors'] = Author.objects.all()
-        #context['form'] = PostForm()
+        #context['test'] ="TEST"
 
         return context
 
@@ -67,7 +72,7 @@ class Posts(ListView):
     """
 
 
-
+@method_decorator(login_required, name='dispatch')
 class PostSearch(ListView):
     model = Post
     template_name = 'flatpages/search.html'
@@ -121,6 +126,7 @@ class PostList(ListView):
         return context
 
 """
+@method_decorator(login_required, name='dispatch')
 class PostDetail(DetailView):
     model = Post
     template_name = "flatpages/post.html"
@@ -128,11 +134,13 @@ class PostDetail(DetailView):
     queryset = Post.objects.all()
 
 # дженерик для редактирования объекта
-class PostUpdate(UpdateView):
+@method_decorator(login_required, name='dispatch')
+class PostUpdate(PermissionRequiredMixin,UpdateView):
     template_name = 'flatpages/add.html'
     form_class = PostForm
     success_url = '/news/'
 
+    permission_required = ('portal.change_post',)
     # метод get_object мы используем вместо queryset, чтобы получить информацию об объекте, который мы собираемся редактировать
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
@@ -140,7 +148,10 @@ class PostUpdate(UpdateView):
 
 
 # дженерик для удаления товара
-class PostDelete(DeleteView):
+@method_decorator(login_required, name='dispatch')
+class PostDelete(PermissionRequiredMixin,DeleteView):
     template_name = 'flatpages/delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
+
+    permission_required = ('portal.delete_post',)

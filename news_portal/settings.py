@@ -17,7 +17,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -27,6 +27,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 
 # Application definition
@@ -41,8 +56,15 @@ INSTALLED_APPS = [
     'portal',
     'django.contrib.sites',   #not default included
     'django.contrib.flatpages',   #not default included
-    'django_filters',
+    'django_filters',   #not default
+    'sign',
+    'protect',
     #'fpages'
+     'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # ... include the providers you want to enable:
+    'allauth.socialaccount.providers.google',
 ]
 
 SITE_ID = 1
@@ -78,7 +100,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'news_portal.wsgi.application'
 
-
+#added after adding sign and protect apps
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 

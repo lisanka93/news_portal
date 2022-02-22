@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+  <h1 class="fw-bolder">Welcome to News Portal </h1>
+    <p class="lead">Protect Page</p> <!--only paginator works too -->
+{% endblock %}
+
+
+{% block content %}
+
+
+<h2>Страница авторизованного пользователя {{request.user.username}}</h2>
+<br>
+<button> <a href="sign/logout/">Выйти</a> </button>
+
+
+{% endblock content %}

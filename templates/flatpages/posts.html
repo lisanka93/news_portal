@@ -5,6 +5,7 @@
 {% block title %}
   <h1 class="fw-bolder">Welcome! </h1>
     <p class="lead">All the latest news (the total number of news is {{page_obj.paginator.count}})</p> <!--only paginator works too -->
+<a class="btn btn-lg btn-light" href="#news">Start reading!</a>
 {% endblock %}
 
 {% block date %}
@@ -12,15 +13,18 @@
 {% endblock %}
 
 {% block content %}
+
+
 <h2>Latest News</h2>
 <p class="lead">here you can see all the latest news</p>
-
+{{test}}
 
 
 <br>
-{%for p in filter.qs %}
-<h4> {{p.title|censor}} </h4>
-<td>
+{%for p in posts %}
+
+<td><h4> {{p.title|title|censor}} </h4>
+
 <a href="{% url 'post' p.id %}">{{ p.title|title|censor}}</a> <!-- При нажатии на имя товара в таблице нас теперь будет перекидывать на страницу с информацией о товаре -->
 
     <a href="{% url 'update' p.id %}"><u>Редактировать</u></a> <!-- добавим ссылку на редактирование товара-->
@@ -36,29 +40,34 @@
 
 {% endfor %}
 
+{% if is_paginated %}
+    <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
+    {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
 
-   {% if is_paginated %}
-       <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
-       {% if page_obj.has_previous %}
-           <a href="?page=1">First</a>
-           <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
-       {% endif %}
 
-       <!-- Показываем только текущую страницу и ближайшие к ней, чтобы список не тянулся и не захламлял страницу -->
-       {% for num in page_obj.paginator.page_range %}
-           {% if page_obj.number == num %}
-               <a>{{ num }}</a>
-           {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
-               <a href="?page={{ num }}">{{ num }}</a>
-           {% endif %}
-       {% endfor %}
+    <!-- Показываем только текущую страницу и ближайшие к ней, чтобы список не тянулся и не захламлял страницу -->
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
 
-       <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
-       {% if page_obj.has_next %}
-           <a href="?page={{ page_obj.next_page_number }}">>>></a>
-           <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-       {% endif %}
 
-   {% endif %}
+
+    <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">>>></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+
+{% endif %}
+
+
+
 
 {% endblock content %}

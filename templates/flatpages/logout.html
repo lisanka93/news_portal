@@ -1,0 +1,12 @@
+
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+  <h1 class="fw-bolder">Welcome to News Portal </h1>
+    <p class="lead">Logout Page</p> <!--only paginator works too -->
+{% endblock %}
+
+
+{% block content %}
+<h2> {{request.user.is_anonymous}} - you are logged out.</h2>
+{% endblock %}

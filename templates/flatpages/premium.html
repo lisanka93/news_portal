@@ -1,0 +1,21 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+  <h1 class="fw-bolder">Author </h1>
+    <p class="lead">Become an author</p> <!--only paginator works too -->
+
+{% endblock %}
+
+
+{% block content %}
+
+{% if is_not_premium %}
+<button> <a href="{% url 'upgrade' %}"> I want to become an author!</a> </button>
+{% elif is_premium %}
+
+You are already an author - post away!
+
+{% endif %}
+
+
+{% endblock %}
